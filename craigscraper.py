@@ -28,29 +28,15 @@ def fetch_listings():
         link = li.a['href']
         price = li.select_one('.price').text.strip()
         location = li.select_one('.location').text.strip()
-        mileage = extract_mileage(title)
     
         results.append({
             'title': title,
             'link': link,
             'price': price,
             'location': location,
-            'mileage': mileage
         })
 
     return results
-
-def extract_mileage(title):
-    # Look for patterns like "77,000 miles", "77000 mi", "77k", etc.
-    match = re.search(r'(\d{1,3}(?:,\d{3})+|\d{4,6})\s*(miles?|mi|k)', title.lower())
-    if match:
-        mileage_str = match.group(1).replace(',', '')
-        if 'k' in mileage_str:
-            mileage = int(float(mileage_str.replace('k', '')) * 1000)
-        else:
-            mileage = int(mileage_str)
-        return mileage
-    return None
 
 def main():
     cars = fetch_listings()
