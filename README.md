@@ -1,0 +1,1 @@
+This is a simply webscraper that will pull information from Craiglist about cars
